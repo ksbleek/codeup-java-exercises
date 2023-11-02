@@ -61,6 +61,7 @@ public class ControlFlowExercises {
 //        } while (Objects.equals(UserResponce, "n"));
 
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a grade from 0 to 100?");
         String Continue;
         
         do {
