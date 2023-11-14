@@ -50,7 +50,7 @@ public class GradesApplication {
             String user = scanner.next();
             if (usernames.containsKey(user)){
                 System.out.printf("Name: %s - GitHub Username: %s%n" +
-                        "Current Average: %f%n", usernames.get(user).getName(), user, usernames.get(user).getGradeAverage());
+                        "Current Average: %.2f%n", usernames.get(user).getName(), user, usernames.get(user).getGradeAverage());
 
             } else {
                 System.out.printf("Sorry, no student found with the GitHub username of %s%n%n", user);
