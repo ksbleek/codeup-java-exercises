@@ -1,61 +1,92 @@
 package util;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Input {
+    private static Scanner scanner;
 
-    private static Scanner scanner = new Scanner(System.in);
-
-    static String getString(){
-        System.out.println("Enter a sting?");
-        return scanner.next();
+    public Input() {
+        scanner = new Scanner(System.in);
     }
 
-    static String answer;
-
-    static String yesNo(){
-        System.out.println("Enter yes or no?");
-        String response = scanner.next();
-       if(Objects.equals(response, "y") || Objects.equals(response, "yes")){
-           answer = "true";
-       } else {
-           answer = "False";
-       }
-        return answer;
+    public static String getString() {
+        return scanner.nextLine();
     }
 
-    static int number;
-    static void getInt(int min, int max){
-        do{
-            System.out.printf("Enter a number between %d and %d?", min, max);
-            number = scanner.nextInt();
-        } while ((int) number > max || (int) number < min);
-        System.out.println(number);
+
+    public static String getString(String prompt) {
+        System.out.print(prompt);
+        return getString();
     }
 
-    static int num;
-    static void getInt(){
-        System.out.println("Enter a number?");
-        num = Integer.parseInt(scanner.next());
-        System.out.println(num);
+    public boolean yesNo() {
+        String response = getString();
+        if(response.equalsIgnoreCase("yes") || response.equalsIgnoreCase("y")) {
+            return true;
+        }
+        return false;
     }
 
-    static double numberD;
-    static void getDouble(double min, double max){
-        do{
-            System.out.printf("Enter a decimal number between %f and %f?", min, max);
-            numberD =  scanner.nextDouble();
-        } while ((double) numberD > max || (double) numberD < min);
-        System.out.println(numberD);
+    public boolean yesNo(String prompt) {
+        System.out.print(prompt);
+        return yesNo();
     }
 
-    static double numD;
+    public int getInt() {
+        int userInt = 0;
 
-    static void getDouble(){
-        System.out.println("Enter a decimal number?");
-        numD = scanner.nextDouble();
-        System.out.println(numD);
+        String s = getString();
+        try {
+            userInt = Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            System.out.print("Invalid integer. Please re-enter: ");
+            userInt = getInt();
+        }
+
+        return userInt;
+    }
+
+    public int getInt(String prompt) {
+        System.out.print(prompt);
+        return getInt();
+    }
+
+    public int getInt(int min, int max) {
+        return getInt(min, max, "");
+    }
+
+    public int getInt(int min, int max, String prompt) {
+        System.out.print(prompt);
+        int anInt = getInt();
+        if(anInt < min || anInt > max) {
+            System.out.printf("Please enter a valid integer between %d and %d!!%n", min, max);
+            return getInt(min, max, prompt);
+        }
+        return anInt;
+    }
+
+    public double getDouble() {
+        double userDouble = 0;
+
+        String s = getString();
+        try {
+            userDouble = Double.parseDouble(s);
+        } catch(NumberFormatException e) {
+            System.out.print("Invalid double. Please re-enter: ");
+            userDouble = getDouble();
+        }
+
+        return userDouble;
+    }
+
+    public double getDouble(double min, double max) {
+        System.out.printf("Enter a number between %f and %f%n", min, max);
+        double aDouble = getDouble();
+        if(aDouble < min || aDouble > max) {
+            System.out.printf("Please enter a valid double between %f and %f!!%n", min, max);
+            return getDouble(min, max);
+        }
+        return aDouble;
     }
 
 }
